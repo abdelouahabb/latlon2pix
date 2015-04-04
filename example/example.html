@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="UTF-8">
+    <title>Untitled Document</title>
+</head>
+
+<body>
+
+<div id="dz" style="background-image: url('algerie.png');height: 696px;width: 713px;background-size: contain;background-repeat: no-repeat;">
+	<p id="hey">0</p>
+</div>
+
+<script>
+
+function placeDiv(x_pos, y_pos) {
+  var d = document.getElementById('hey');
+  d.style.position = "absolute";
+  d.style.left = x_pos+'px';
+  d.style.top = y_pos+'px';
+}
+		
+var mapWidth = 713;
+var mapHeight = 696;
+
+var mapLonLeft = -8.66666794;
+var mapLonRight = 11.99998856;
+
+var mapLonDelta = mapLonRight - mapLonLeft;
+
+var mapLatBottom = 18.96814699;
+var mapLatBottomDegree =mapLatBottom * Math.PI / 180;
+
+function convertGeoToPixel(lat, lon)
+{
+
+    x = (lon - mapLonLeft) * (mapWidth / mapLonDelta);
+
+    lat = lat * Math.PI / 180;
+    worldMapWidth = ((mapWidth / mapLonDelta) * 360) / (2 * Math.PI);
+    mapOffsetY = (worldMapWidth / 2 * Math.log((1 + Math.sin(mapLatBottomDegree)) / (1 - Math.sin(mapLatBottomDegree))));
+    y = mapHeight - ((worldMapWidth / 2 * Math.log((1 + Math.sin(lat)) / (1 - Math.sin(lat)))) - mapOffsetY);
+
+    return placeDiv(x, y);
+}
+	
+	</script>
+</body>
